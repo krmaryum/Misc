@@ -113,4 +113,37 @@ Save this roadmap for your DevOps journey
 
 <img src="./screenshots/DevOps-Flow.png" width="600">
 
+## A timeline is a way of showing events in the order they happened over time.
+
+It helps people understand:
+
+- when something happened
+- what happened first
+- what happened next
+- Simple Example
+```text
+2019 → Started school
+2021 → Learned programming
+2023 → Got first job
+2025 → Became DevOps engineer
+```
+### That sequence is called a timeline.
+
+In simple words:
+
+## A timeline is a visual or written order of events arranged by time.
+
+### Where timelines are used:
+- History
+- Project planning
+- Roadmaps
+- Software development
+- Personal life events
+- Videos & storytelling
+
+For example, in DevOps:
+```text
+Code → Build → Test → Deploy → Monitor
+```
+That can also be called a workflow timeline.
 
