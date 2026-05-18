@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# create-linux-user.sh
-# Cross-platform Linux user creation script
+# -----------------------------------------------------------------------------
+# Script Name : create-linux-user.sh
+# Description : Create Linux users with optional sudo/admin access
+# Features    : Supports Ubuntu/Debian and RHEL-based distributions
+# Usage       : sudo ./create-linux-user.sh
+# Author      : Khalid Khan
+# -----------------------------------------------------------------------------
 
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root or with sudo."
@@ -26,12 +31,34 @@ useradd -m -s /bin/bash -c "$GECOS" "$USERNAME"
 
 passwd "$USERNAME"
 
-if getent group sudo >/dev/null; then
-    usermod -aG sudo "$USERNAME"
-elif getent group wheel >/dev/null; then
-    usermod -aG wheel "$USERNAME"
+echo ""
+read -p "Do you want to give sudo/admin access? (y/n): " ADMIN_ACCESS
+
+if [[ "$ADMIN_ACCESS" =~ ^[Yy]$ ]]; then
+    if getent group sudo >/dev/null; then
+        usermod -aG sudo "$USERNAME"
+        echo "User added to sudo group."
+    elif getent group wheel >/dev/null; then
+        usermod -aG wheel "$USERNAME"
+        echo "User added to wheel group."
+    else
+        echo "No sudo/wheel group found."
+    fi
 else
-    echo "No sudo or wheel group found. User created without admin group."
+    echo "Creating normal user without admin privileges."
+fi
+
+echo ""
+read -p "Enter an additional group name (optional): " GROUP_NAME
+
+if [ -n "$GROUP_NAME" ]; then
+    if getent group "$GROUP_NAME" >/dev/null; then
+        usermod -aG "$GROUP_NAME" "$USERNAME"
+        echo "User added to group '$GROUP_NAME'."
+    else
+        echo "Group '$GROUP_NAME' does not exist."
+        echo "User created without additional group."
+    fi
 fi
 
 echo ""
