@@ -69,3 +69,12 @@ Enter an additional group name (optional): docker
 ```text
 scripts/linux/create-linux-user/create-linux-user.sh
 ```
+
+## Useful verification commands
+```bash
+id <username>
+groups <username>
+getent passwd <username>
+ls -ld /home/<username>
+sudo su - <username>
+```
